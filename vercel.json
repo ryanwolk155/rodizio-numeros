@@ -6,18 +6,26 @@
       "use": "@vercel/node"
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/(.*)",
-      "dest": "/api/index.js",
-      "headers": {
-        "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
-        "CDN-Cache-Control": "no-store",
-        "Vary": "*"
-      }
+      "source": "/(.*)",
+      "destination": "/api/index.js"
     }
   ],
-  "regions": ["gru1"],
-  "public": false,
-  "cleanUrls": true
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, no-cache, must-revalidate"
+        },
+        {
+          "key": "CDN-Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    }
+  ],
+  "regions": ["gru1"]
 }
